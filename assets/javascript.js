@@ -18,7 +18,7 @@ function handleResponse(response){
   for (var i = 0; i < 3; i++) {
     var item = response.items[i];
     // show title, author, and image in UI 
-    document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.title + "<br>" + item.volumeInfo.authors[0]+ "<br>" + "<img src="+item.volumeInfo.imageLinks.smallThumbnail+"/>";  
+    $("#searchResults").append("<div class='col s4'> " + item.volumeInfo.title + "<br>" + item.volumeInfo.authors[0]+ "<br>" + "<img src="+item.volumeInfo.imageLinks.smallThumbnail+"/></div>");  
   }
 }
 
