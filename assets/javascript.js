@@ -26,6 +26,7 @@ $( "#submit" ).click(function(event) {
   console.log("clickhandler");
   event.preventDefault();
   generateQueryURL();
+  generateYoutubeURL();
   clearSearch();
   $.ajax({
     //use saved queryurl 
@@ -40,3 +41,21 @@ $( "#submit" ).click(function(event) {
 function clearSearch(){
   $("#title").text("");
 };
+
+var youtubeQueryURL 
+var youtubeResponse
+
+function generateYoutubeURL(){
+  var titleQuery = $("#title").val();
+    youtubeQueryURL =  "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBezsbgbsQEgpKlzTboqd7ynYrVSJvKDZg&part=id&maxResults=3&q=" + titleQuery;
+
+  $.ajax({
+    url: youtubeQueryURL,
+    method: "GET"
+  })
+  .then(function(response) {
+      console.log(response);
+  });
+  
+};
+  
