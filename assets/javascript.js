@@ -1,17 +1,26 @@
-//goodreads API is broken.. they don't use CORS compliant headers in their response and haven't made an update since 2016. looking into Google books API now. (lisa)
 
 
 var queryURL
 var goodReadsResponse
 
 function generateQueryURL(){
-  var apiKey = "8s3jRKgwxIUUJ6ZoUo7hQ"
   // save .val of search box as query variable
   var titleQuery = $("#title").val();
-  var authorQuery = $("#author").val();
-  queryURL = "https://www.goodreads.com/search/index.xml?key=" + apiKey + "&q=" + titleQuery + " " + authorQuery
-
+  queryURL =  "https://www.googleapis.com/books/v1/volumes?q=" + titleQuery + "&callback=handleResponse"
+  console.log(queryURL);
 }
+
+function handleResponse(response){
+  //save response 
+  booksResponse = response
+  console.log(response)
+  for (var i = 0; i < response.items.length; i++) {
+    var item = response.items[i];
+    // in production code, item.text should have the HTML entities escaped.
+    document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.title;  
+  }
+}
+
 
 $( "#submit" ).click(function(event) {
   console.log("clickhandler");
@@ -19,17 +28,15 @@ $( "#submit" ).click(function(event) {
   generateQueryURL();
   clearSearch();
   $.ajax({
-    //use saved queryurl for character
+    //use saved queryurl 
     url: queryURL,
-    method: "GET"
-  }).then(function(response) {
-    //save response 
-    goodReadsResponse = response
-    //show in ui
-  });
+    method: "GET",
+    dataType: "jsonp",
+  }).then(handleResponse);
 });
+  
+
 
 function clearSearch(){
   $("#title").text("");
-  $("#author").text("");
 };
