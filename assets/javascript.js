@@ -11,13 +11,14 @@ function generateQueryURL(){
 }
 
 function handleResponse(response){
+  clearSearch();
   //save response 
   booksResponse = response
   console.log(response)
-  for (var i = 0; i < response.items.length; i++) {
+  for (var i = 0; i < 3; i++) {
     var item = response.items[i];
-    // in production code, item.text should have the HTML entities escaped.
-    document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.title;  
+    // show title, author, and image in UI 
+    $("#searchResults").append("<div class='col s4'> " + item.volumeInfo.title + "<br>" + item.volumeInfo.authors[0]+ "<br>" + "<img src="+item.volumeInfo.imageLinks.smallThumbnail+"/></div>");  
   }
 }
 
@@ -39,8 +40,9 @@ $( "#submit" ).click(function(event) {
 
 
 function clearSearch(){
-  $("#title").text("");
-};
+  console.log('clearhandler')
+  $("#title").val("");
+}
 
 var youtubeQueryURL 
 var youtubeResponse
