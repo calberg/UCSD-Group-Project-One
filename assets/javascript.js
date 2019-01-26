@@ -47,7 +47,7 @@ function clearSearch(){
 //get youtube video id relative to book being searched
 var youtubeQueryURL 
 var youtubeResponse
-
+var youtubeVideoID;
 function generateYoutubeURL(){
   var titleQuery = $("#title").val();
     youtubeQueryURL =  "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBezsbgbsQEgpKlzTboqd7ynYrVSJvKDZg&part=id&maxResults=3&q=" + titleQuery;
@@ -59,16 +59,13 @@ function generateYoutubeURL(){
   .then(function(response) {
       console.log(response);
       console.log(response.items[0].id.videoId);
-      var youtubevideoID = response.items[0].id.videoId;
-      return youtubevideoID;
-  });
+      youtubeVideoID = response.items[0].id.videoId;
+  })
   
 };
-//save id in var to call in click function that populates videos
-console.log(youtubevideoID) 
 
 //click handler to load youtube videos 
 $( "#searchResults" ).click(function() {
-  var player = $('<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + youtubevideoID + '?autoplay=1&origin=http://example.com" frameborder="0"></iframe>');
+  var player = $('<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + youtubeVideoID + '?autoplay=1&origin=http://example.com" frameborder="0"></iframe>');
   $('#player').append(player);
 });
