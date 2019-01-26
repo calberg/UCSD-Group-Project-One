@@ -44,6 +44,7 @@ function clearSearch(){
   $("#title").val("");
 }
 
+//get youtube video id relative to book being searched
 var youtubeQueryURL 
 var youtubeResponse
 
@@ -57,7 +58,17 @@ function generateYoutubeURL(){
   })
   .then(function(response) {
       console.log(response);
+      console.log(response.items[0].id.videoId);
+      var youtubevideoID = response.items[0].id.videoId;
+      return youtubevideoID;
   });
   
 };
-  
+//save id in var to call in click function that populates videos
+console.log(youtubevideoID) 
+
+//click handler to load youtube videos 
+$( "#searchResults" ).click(function() {
+  var player = $('<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + youtubevideoID + '?autoplay=1&origin=http://example.com" frameborder="0"></iframe>');
+  $('#player').append(player);
+});
