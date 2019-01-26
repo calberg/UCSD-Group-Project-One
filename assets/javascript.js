@@ -15,10 +15,11 @@ function handleResponse(response){
   //save response 
   booksResponse = response
   console.log(response)
+  $(".results").append("<div class='row'><h6>Results</h6></div>");
   for (var i = 0; i < 3; i++) {
     var item = response.items[i];
     // show title, author, and image in UI 
-    $("#searchResults").append("<div class='col s4'> " + item.volumeInfo.title + "<br>" + item.volumeInfo.authors[0]+ "<br>" + "<img src="+item.volumeInfo.imageLinks.smallThumbnail+"/></div>");  
+    $("#searchResults").append("<div class='col s4'> <div class='card horizontal'>  <div class='card-image book-image'> <img src="+item.volumeInfo.imageLinks.smallThumbnail+"/></div> <div class='card-stacked'> <div class='card-content'>"+ item.volumeInfo.title + "<br>" + item.volumeInfo.authors[0]);  
   }
 }
 
