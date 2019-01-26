@@ -10,12 +10,17 @@ function generateQueryURL(){
   console.log(queryURL);
 }
 
+
 function handleResponse(response){
-  clearSearch();
   //save response 
   booksResponse = response
   console.log(response)
+  $("#searchResults").html("");
+  $(".results").html("");
   $(".results").append("<div class='row'><h6>Results</h6></div>");
+    
+  
+  searchresults = true
   for (var i = 0; i < 3; i++) {
     var item = response.items[i];
     // show title, author, and image in UI 
@@ -29,7 +34,7 @@ $( "#submit" ).click(function(event) {
   event.preventDefault();
   generateQueryURL();
   generateYoutubeURL();
-  clearSearch();
+  
   $.ajax({
     //use saved queryurl 
     url: queryURL,
