@@ -76,7 +76,7 @@ function generateYoutubeURL(){
 $( "#searchResults" ).click(function() {
   for (let i = 0; i < youtubeVideoIDs.length; i++) {
     const videoID = youtubeVideoIDs[i];
-    var player = $('<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + videoID + '?autoplay=1&origin=http://example.com" frameborder="0"></iframe>');
+    var player = $('<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + videoID + '?autoplay=0&origin=http://example.com" frameborder="0"></iframe>');
     $('#player').append(player);
   }
 });
