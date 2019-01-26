@@ -47,7 +47,7 @@ function clearSearch(){
 //get youtube video id relative to book being searched
 var youtubeQueryURL 
 var youtubeResponse
-var youtubeVideoID;
+var youtubeVideoIDs = [];
 function generateYoutubeURL(){
   var titleQuery = $("#title").val();
     youtubeQueryURL =  "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBezsbgbsQEgpKlzTboqd7ynYrVSJvKDZg&part=id&maxResults=3&q=" + titleQuery;
@@ -57,15 +57,20 @@ function generateYoutubeURL(){
     method: "GET"
   })
   .then(function(response) {
-      console.log(response);
-      console.log(response.items[0].id.videoId);
-      youtubeVideoID = response.items[0].id.videoId;
+    console.log(response);
+    console.log(response.items[0].id.videoId);
+    youtubeVideoIDs = [];
+    youtubeVideoIDs.push(response.items[0].id.videoId);
+    youtubeVideoIDs.push(response.items[1].id.videoId);
+    youtubeVideoIDs.push(response.items[2].id.videoId);
   })
-  
 };
 
 //click handler to load youtube videos 
 $( "#searchResults" ).click(function() {
-  var player = $('<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + youtubeVideoID + '?autoplay=1&origin=http://example.com" frameborder="0"></iframe>');
-  $('#player').append(player);
+  for (let i = 0; i < youtubeVideoIDs.length; i++) {
+    const videoID = youtubeVideoIDs[i];
+    var player = $('<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + videoID + '?autoplay=1&origin=http://example.com" frameborder="0"></iframe>');
+    $('#player').append(player);
+  }
 });
