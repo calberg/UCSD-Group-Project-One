@@ -18,9 +18,6 @@ function handleResponse(response){
   $("#searchResults").html("");
   $(".results").html("");
   $(".results").append("<div class='row'><h6>Results</h6></div>");
-    
-  
-  searchresults = true
   for (var i = 0; i < 3; i++) {
     var item = response.items[i];
     // show title, author, and image in UI 
@@ -63,6 +60,7 @@ function generateYoutubeURL(){
     method: "GET"
   })
   .then(function(response) {
+
     console.log(response);
     console.log(response.items[0].id.videoId);
     youtubeVideoIDs = [];
@@ -74,9 +72,11 @@ function generateYoutubeURL(){
 
 //click handler to load youtube videos 
 $( "#searchResults" ).click(function() {
+  $(".videoresults").append("<div class='row'><h6>Related Videos:</h6></div>");
+
   for (let i = 0; i < youtubeVideoIDs.length; i++) {
     const videoID = youtubeVideoIDs[i];
-    var player = $('<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/' + videoID + '?autoplay=0&origin=http://example.com" frameborder="0"></iframe>');
+    var player = $('<div class="col s4"><div class="card"><div class="card-image video"><iframe id="ytplayer" type="text/html" width="200" height="" src="https://www.youtube.com/embed/' + videoID +'?autoplay=1&origin=http://example.com"frameborder="0"></iframe></div></div></div>');
     $('#player').append(player);
   }
 });
