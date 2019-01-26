@@ -76,7 +76,7 @@ $( "#searchResults" ).click(function() {
 
   for (let i = 0; i < youtubeVideoIDs.length; i++) {
     const videoID = youtubeVideoIDs[i];
-    var player = $('<div class="col s4"><div class="card"><div class="card-image video"><iframe id="ytplayer" type="text/html" width="200" height="" src="https://www.youtube.com/embed/' + videoID +'?autoplay=1&origin=http://example.com"frameborder="0"></iframe></div></div></div>');
+    var player = $('<div class="col s4"><div class="card"><div class="card-image video"><iframe id="ytplayer" type="text/html" width="200" height="" src="https://www.youtube.com/embed/' + videoID +'?autoplay=0&origin=http://example.com"frameborder="0"></iframe></div></div></div>');
     $('#player').append(player);
   }
 });
