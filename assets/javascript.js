@@ -50,7 +50,7 @@ function clearSearch(){
 //get youtube video id relative to book being searched
 var youtubeQueryURL 
 var youtubeResponse
-var youtubeVideoID;
+var youtubeVideoIDs = [];
 function generateYoutubeURL(){
   var titleQuery = $("#title").val();
     youtubeQueryURL =  "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBezsbgbsQEgpKlzTboqd7ynYrVSJvKDZg&part=id&maxResults=3&q=" + titleQuery;
@@ -60,16 +60,23 @@ function generateYoutubeURL(){
     method: "GET"
   })
   .then(function(response) {
-      console.log(response);
-      console.log(response.items[0].id.videoId);
-      youtubeVideoID = response.items[0].id.videoId;
-      console.log(youtubeVideoID);
+
+    console.log(response);
+    console.log(response.items[0].id.videoId);
+    youtubeVideoIDs = [];
+    youtubeVideoIDs.push(response.items[0].id.videoId);
+    youtubeVideoIDs.push(response.items[1].id.videoId);
+    youtubeVideoIDs.push(response.items[2].id.videoId);
   })
-  
 };
 
 //click handler to load youtube videos 
 $( "#searchResults" ).click(function() {
-  var player = $('<div class="col s4"><div class="card"><div class="card-image video"><iframe id="ytplayer" type="text/html" width="200" height="" src="https://www.youtube.com/embed/' + youtubeVideoID +'?autoplay=1&origin=http://example.com"frameborder="0"></iframe></div></div></div>');
-  $('#player').append(player);
+  $(".videoresults").append("<div class='row'><h6>Related Videos:</h6></div>");
+
+  for (let i = 0; i < youtubeVideoIDs.length; i++) {
+    const videoID = youtubeVideoIDs[i];
+    var player = $('<div class="col s4"><div class="card"><div class="card-image video"><iframe id="ytplayer" type="text/html" width="200" height="" src="https://www.youtube.com/embed/' + videoID +'?autoplay=1&origin=http://example.com"frameborder="0"></iframe></div></div></div>');
+    $('#player').append(player);
+  }
 });
