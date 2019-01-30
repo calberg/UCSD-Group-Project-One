@@ -125,4 +125,4 @@ $( "#searchResults" ).click(function() {
       var player = $('<div class="col s4"><div class="card"><div class="card-image video"><iframe id="ytplayer" type="text/html" width="200" height="" src="https://www.youtube.com/embed/' + videoID.id.videoId +'?autoplay=0&origin=http://example.com"frameborder="0"></iframe></div></div></div>');
       $('#player').append(player);
     }
-}
+});
