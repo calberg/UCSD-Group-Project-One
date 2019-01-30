@@ -22,7 +22,7 @@ function handleResponse(response){
   for (var i = 0; i < 3; i++) {
     var item = booksResponse.items[i];
     // show title, author, and image in UI 
-    $("#searchResults").append("<div class='col s4'> <div class='card horizontal bookSearchCard'>  <div class='card-image book-image'> <img src="+item.volumeInfo.imageLinks.smallThumbnail+"/></div> <div class='card-stacked'> <div class='card-content'><p class='title'>"+ item.volumeInfo.title + "</p> <p>" + item.volumeInfo.authors[0]+"</p>");  
+    $("#searchResults").append("<div class='col s4'> <div class='card horizontal bookSearchCard'>  <div class='card-image book-image'> <img src="+item.volumeInfo.imageLinks.smallThumbnail+"/></div> <div class='card-stacked'> <div class='card-content'><p class='title'>"+ item.volumeInfo.title + "</p> <p>" + item.volumeInfo.authors[0]+"</p> </div>");  
   }
   bindcards();
 }
@@ -39,20 +39,26 @@ function bindcards(){
 }
 
 $( "#submit" ).click(function(event) {
-  console.log("search clickhandler");
-  $("#player").html("");
-  $(".videoresults").html("");
-
   event.preventDefault();
-  generateQueryURL();
-  
-  $.ajax({
-    //use saved queryurl 
-    url: queryURL,
-    method: "GET",
-    dataType: "jsonp",
-  }).then(handleResponse);
+  //if search is empty, show error message
+  var searchquery = $("#title").val()
+  if ( searchquery === "" ) {
+    $(".input-field").append('<span class="helper-text helpertext"> Oops! Please search for a book </span>');
+  }
+  else {
+    console.log("search clickhandler");
+    $("#player").html("");
+    $(".videoresults").html("");
+    generateQueryURL();
+    $.ajax({
+      //use saved queryurl 
+      url: queryURL,
+      method: "GET",
+      dataType: "jsonp",
+    }).then(handleResponse);
+  }
 });
+
   
 
 
@@ -94,7 +100,7 @@ function showVideoResults(){
 
     for (let i = 0; i < 3; i++) {
       var videoID = youtubeResponse.items[i]
-      var player = $('<div class="col s4"><div class="card"><div class="card-image video"><iframe id="ytplayer" type="text/html" width="200" height="" src="https://www.youtube.com/embed/' + videoID.id.videoId +'?autoplay=0&origin=http://example.com"frameborder="0"></iframe></div></div></div>');
+      var player = $('<div class="col s4"><div class="card"><div class="card-image video"><iframe id="ytplayer" type="text/html" width="240" height="" src="https://www.youtube.com/embed/' + videoID.id.videoId +'?autoplay=0&origin=http://example.com"frameborder="0"></iframe></div></div></div>');
       $('#player').append(player);
     }
 }
