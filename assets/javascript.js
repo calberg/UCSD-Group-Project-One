@@ -22,7 +22,7 @@ function handleResponse(response){
   for (var i = 0; i < 3; i++) {
     var item = booksResponse.items[i];
     // show title, author, and image in UI 
-    $("#searchResults").append("<div class='col s4'> <div class='card horizontal bookSearchCard'>  <div class='card-image book-image'> <img src="+item.volumeInfo.imageLinks.smallThumbnail+"/></div> <div class='card-stacked'> <div class='card-content'><p class='title'>"+ item.volumeInfo.title + "</p> <p>" + item.volumeInfo.authors[0]+"</p> </div>");  
+    $("#searchResults").append("<div class='col s4'> <div class='card horizontal bookSearchCard'>  <div class='card-image book-image'> <img src="+item.volumeInfo.imageLinks.smallThumbnail+"/></div> <div class='card-stacked'> <div class='card-content'><p class='title'>"+ item.volumeInfo.title + "</p> <p>" + item.volumeInfo.authors[0]+"</p>");  
   }
   bindcards();
 }
@@ -37,6 +37,7 @@ function bindcards(){
     
 });
 }
+
 
 $( "#submit" ).click(function(event) {
   event.preventDefault();
@@ -59,8 +60,6 @@ $( "#submit" ).click(function(event) {
     }).then(handleResponse);
   }
 });
-
-  
 
 
 function clearSearch(){
@@ -126,7 +125,8 @@ $( "#searchResults" ).click(function() {
 
     for (let i = 0; i < 3; i++) {
       var videoID = youtubeResponse.items[i]
-      var player = $('<div class="col s4"><div class="card"><div class="card-image video"><iframe id="ytplayer" type="text/html" width="240" height="" src="https://www.youtube.com/embed/' + videoID.id.videoId +'?autoplay=0&origin=http://example.com"frameborder="0"></iframe></div></div></div>');
+      var player = $('<div class="col s4"><div class="card"><div class="card-image video"><iframe id="ytplayer" type="text/html" width="200" height="" src="https://www.youtube.com/embed/' + videoID.id.videoId +'?autoplay=0&origin=http://example.com"frameborder="0"></iframe></div></div></div>');
       $('#player').append(player);
     }
+
 });
