@@ -30,7 +30,8 @@ $( "#submit" ).click(function(event) {
   console.log("clickhandler");
   event.preventDefault();
   generateQueryURL();
-  generateYoutubeURL();
+  youtubeVideoIDs = [];
+  generateYoutubeURLs();
   
   $.ajax({
     //use saved queryurl 
@@ -51,9 +52,22 @@ function clearSearch(){
 var youtubeQueryURL 
 var youtubeResponse
 var youtubeVideoIDs = [];
-function generateYoutubeURL(){
+function generateYoutubeURLs(){
   var titleQuery = $("#title").val();
-    youtubeQueryURL =  "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBezsbgbsQEgpKlzTboqd7ynYrVSJvKDZg&part=id&maxResults=3&q=" + titleQuery;
+  youtubeQueryURL =  "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBezsbgbsQEgpKlzTboqd7ynYrVSJvKDZg&part=id&maxResults=3&q=" + titleQuery;
+
+  $.ajax({
+    url: youtubeQueryURL,
+    method: "GET"
+  })
+  .then(function(response) {
+    console.log(response);
+    console.log(response.items[0].id.videoId);
+    youtubeVideoIDs[0] = response.items[0].id.videoId;
+  })
+
+  titleQuery = $("#title").val();
+  youtubeQueryURL =  "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBezsbgbsQEgpKlzTboqd7ynYrVSJvKDZg&part=id&maxResults=3&q=" + titleQuery + "+book+review";
 
   $.ajax({
     url: youtubeQueryURL,
@@ -63,12 +77,24 @@ function generateYoutubeURL(){
 
     console.log(response);
     console.log(response.items[0].id.videoId);
-    youtubeVideoIDs = [];
-    youtubeVideoIDs.push(response.items[0].id.videoId);
-    youtubeVideoIDs.push(response.items[1].id.videoId);
-    youtubeVideoIDs.push(response.items[2].id.videoId);
+    youtubeVideoIDs[1] = response.items[0].id.videoId;
+  })
+
+  titleQuery = $("#title").val();
+  youtubeQueryURL =  "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBezsbgbsQEgpKlzTboqd7ynYrVSJvKDZg&part=id&maxResults=3&q=" + titleQuery + "+movie";
+
+  $.ajax({
+    url: youtubeQueryURL,
+    method: "GET"
+  })
+  .then(function(response) {
+
+    console.log(response);
+    console.log(response.items[0].id.videoId);
+    youtubeVideoIDs[2] = response.items[0].id.videoId;
   })
 };
+
 
 //click handler to load youtube videos 
 $( "#searchResults" ).click(function() {
